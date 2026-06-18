@@ -1,0 +1,624 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The Zig Air Max 90 — Limited Pre-Order | The Zig Group</title>
+<meta name="description" content="Pre-order the custom Nike Air Max 90 'The Zig'. Reserve your pair with a refundable deposit. Strictly limited run." />
+
+<!-- Open Graph / social share -->
+<meta property="og:type" content="product" />
+<meta property="og:title" content="The Zig Air Max 90 — Limited Pre-Order" />
+<meta property="og:description" content="Custom Nike Air Max 90 'The Zig'. Reserve yours with a refundable deposit. Strictly limited run." />
+<meta property="og:image" content="model-group.jpg" />
+
+<!-- Stripe Buy Button library -->
+<script async src="https://js.stripe.com/v3/buy-button.js"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<!-- Brand type: EB Garamond (serif headline + body), Inter as the PP Neue Montreal stand-in (grotesque), Geist Mono (accent/labels) -->
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Geist+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+<style>
+  /* ============================================================
+     THE ZIG GROUP — AIR MAX 90 PRE-ORDER
+     Brand tokens taken from Zig-Brand-Guidelines.pdf:
+       Orange #FA5300 (primary) · Red #FD204F · Neon #D3FF9D
+       White #FFFFFF · Black #000000 · Light Blue #EEF8FF
+       Type: Geist Mono (accent) / EB Garamond (headline+body) /
+             PP Neue Montreal (headline+subhead) -> Inter fallback
+     ============================================================ */
+  :root {
+    --black:    #000000;
+    --surface:  #0B0B0B;   /* raised */
+    --surface-2:#131313;   /* cards */
+    --line:     #262626;   /* hairlines */
+    --white:    #FFFFFF;
+    --muted:    #9A9A95;
+    --orange:   #FA5300;   /* PRIMARY */
+    --red:      #FD204F;
+    --neon:     #D3FF9D;
+    --lightblue:#EEF8FF;
+
+    --grotesque: "Inter", "Helvetica Neue", Arial, sans-serif; /* PP Neue Montreal stand-in */
+    --serif:     "EB Garamond", Georgia, serif;
+    --mono:      "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--grotesque);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+    overflow-x: hidden;
+  }
+  img, video { display: block; max-width: 100%; }
+  a { color: inherit; }
+
+  .wrap { width: min(1180px, 92vw); margin-inline: auto; }
+  .serif { font-family: var(--serif); }
+  .accent { color: var(--orange); }
+
+  /* mono label used like the brand's "AI SOLUTIONS" eyebrow */
+  .eyebrow {
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--orange); font-weight: 500; margin-bottom: 16px;
+  }
+
+  /* ---------- pixel mosaic motif (from brand "Visual Elements") ---------- */
+  .mosaic { position: absolute; display: grid; gap: 0; pointer-events: none; z-index: 0; }
+  .mosaic i { width: var(--px, 34px); height: var(--px, 34px); display: block; }
+
+  /* ---------- header ---------- */
+  header {
+    position: sticky; top: 0; z-index: 50;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px clamp(16px, 4vw, 48px);
+    background: rgba(0,0,0,0.72);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .logo { height: 30px; width: auto; display: block; }
+  .nav-tag {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--white); background: var(--red); border-radius: 4px; padding: 5px 10px;
+  }
+  .nav-cta {
+    font-family: var(--mono); font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    background: var(--orange); color: var(--black); border-radius: 6px;
+    padding: 11px 18px; text-decoration: none; white-space: nowrap;
+    transition: transform .25s ease, background .25s ease;
+  }
+  .nav-cta:hover { transform: translateY(-1px); background: #ff6a1f; }
+
+  /* ---------- hero ---------- */
+  .hero { position: relative; overflow: hidden; border-bottom: 1px solid var(--line); }
+  .hero-grid {
+    position: relative; z-index: 2;
+    display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(24px, 4vw, 64px);
+    align-items: center; padding: clamp(40px, 7vw, 92px) 0 clamp(48px, 7vw, 84px);
+  }
+  .badge {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 500;
+    color: var(--neon);
+    border: 1px solid color-mix(in srgb, var(--neon) 35%, transparent);
+    border-radius: 999px; padding: 7px 14px; margin-bottom: 26px;
+  }
+  .badge .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--neon); animation: pulse 2.2s infinite; }
+  @keyframes pulse { 0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--neon) 60%,transparent);} 70%{box-shadow:0 0 0 9px transparent;} 100%{box-shadow:0 0 0 0 transparent;} }
+
+  /* signature brand headline: serif line + heavy grotesque line */
+  .hero h1 { margin-bottom: 20px; line-height: 0.96; }
+  .hero h1 .l1 { display: block; font-family: var(--serif); font-weight: 500; font-style: italic; font-size: clamp(34px, 5vw, 64px); color: var(--white); letter-spacing: -0.01em; }
+  .hero h1 .l2 { display: block; font-family: var(--grotesque); font-weight: 800; font-size: clamp(46px, 8vw, 104px); letter-spacing: -0.03em; text-transform: uppercase; }
+  .hero .sub { font-family: var(--serif); font-size: clamp(17px, 1.7vw, 21px); color: #cfcfca; max-width: 46ch; margin-bottom: 30px; }
+
+  .price-row { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 8px; }
+  .price-now { font-family: var(--mono); font-weight: 600; font-size: clamp(28px, 4vw, 42px); color: var(--orange); }
+  .price-label { font-family: var(--mono); font-size: 12px; color: var(--muted); letter-spacing: 0.04em; }
+  .price-full { font-family: var(--mono); font-size: 13px; color: var(--muted); }
+  .price-full b { color: var(--white); font-weight: 600; }
+
+  .hero-cta-row { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 26px; }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+    font-family: var(--mono); font-weight: 600; letter-spacing: 0.06em; font-size: 13px; text-transform: uppercase;
+    border-radius: 8px; padding: 16px 26px; text-decoration: none; cursor: pointer;
+    border: 1px solid transparent; transition: transform .25s ease, background .25s ease, border-color .25s, color .25s;
+  }
+  .btn-primary { background: var(--orange); color: var(--black); }
+  .btn-primary:hover { background: #ff6a1f; transform: translateY(-2px); }
+  .btn-ghost { background: transparent; color: var(--white); border-color: var(--line); }
+  .btn-ghost:hover { border-color: var(--white); transform: translateY(-2px); }
+
+  .hero-media { position: relative; border-radius: 14px; overflow: hidden; border: 1px solid var(--line); background: var(--surface); aspect-ratio: 4/5; }
+  .hero-media video { width: 100%; height: 100%; object-fit: cover; }
+  .hero-media .corner {
+    position: absolute; top: 14px; left: 14px; z-index: 2;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--white);
+    background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.18);
+    padding: 6px 11px; border-radius: 6px; backdrop-filter: blur(4px);
+  }
+
+  /* ---------- marquee ---------- */
+  .strip { border-bottom: 1px solid var(--line); background: var(--orange); overflow: hidden; }
+  .marquee { display: flex; gap: 0; white-space: nowrap; padding: 13px 0; animation: scroll 28s linear infinite; }
+  .marquee span { font-family: var(--mono); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; font-size: 13px; color: var(--black); }
+  @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) { .marquee { animation: none; } .badge .dot { animation: none; } }
+
+  /* ---------- sections ---------- */
+  section { position: relative; padding: clamp(56px, 9vw, 110px) 0; }
+  .sec-title { font-family: var(--grotesque); font-weight: 800; font-size: clamp(30px, 4.4vw, 56px); letter-spacing: -0.02em; margin-bottom: 16px; line-height: 1.02; }
+  .sec-title .it { font-family: var(--serif); font-weight: 500; font-style: italic; text-transform: none; letter-spacing: -0.01em; }
+  .sec-intro { font-family: var(--serif); color: #cfcfca; max-width: 56ch; font-size: 18px; }
+  .product-desc { max-width: 64ch; margin: 52px 0 0; }
+  .product-desc p { font-family: var(--serif); font-size: 19px; line-height: 1.65; color: #d9d9d4; }
+  .product-desc p + p { margin-top: 18px; }
+  .product-desc .kicker { font-family: var(--grotesque); font-weight: 800; font-size: 22px; letter-spacing: -0.01em; color: var(--orange); margin-top: 24px; }
+
+  /* gallery */
+  .gallery { display: grid; grid-template-columns: 2fr 1fr; gap: 14px; margin-top: 44px; }
+  .gallery .frame { border-radius: 12px; overflow: hidden; border: 1px solid var(--line); background: var(--surface); }
+  .gallery .frame img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+  .gallery .frame:hover img { transform: scale(1.04); }
+  .gallery .stack { display: grid; grid-template-rows: 1fr 1fr; gap: 14px; }
+  .gallery .tall { grid-row: span 2; }
+
+  /* specs */
+  .specs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 44px; }
+  .spec { border: 1px solid var(--line); border-radius: 12px; padding: 22px; background: var(--surface); }
+  .spec .k { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+  .spec .v { font-family: var(--grotesque); font-weight: 700; font-size: 19px; }
+  .swatches { display: flex; gap: 7px; margin-top: 12px; }
+  .swatches i { width: 22px; height: 22px; border-radius: 5px; border: 1px solid rgba(255,255,255,0.15); }
+
+  /* ---------- order ---------- */
+  .order { background: var(--surface); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .order-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 5vw, 72px); align-items: start; }
+  .order-media { border-radius: 12px; overflow: hidden; border: 1px solid var(--line); position: sticky; top: 90px; }
+  .order-media img { width: 100%; aspect-ratio: 4/5; object-fit: cover; }
+
+  .size-label { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin: 26px 0 12px; display: flex; justify-content: space-between; }
+  .size-label a { color: var(--orange); text-decoration: none; }
+  .scale-toggle { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; margin-bottom: 14px; }
+  .scale-toggle button { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; padding: 9px 16px; background: transparent; color: var(--muted); border: none; cursor: pointer; transition: background .2s, color .2s; }
+  .scale-toggle button + button { border-left: 1px solid var(--line); }
+  .scale-toggle button.on { background: var(--orange); color: var(--black); }
+  .sizes { display: grid; grid-template-columns: repeat(auto-fill, minmax(62px, 1fr)); gap: 9px; }
+  .size {
+    font-family: var(--mono); border: 1px solid var(--line); background: var(--surface-2); border-radius: 8px;
+    padding: 13px 0; text-align: center; cursor: pointer; font-weight: 500; font-size: 14px; color: var(--white);
+    transition: border-color .2s, background .2s, color .2s; user-select: none;
+  }
+  .size:hover { border-color: var(--white); }
+  .size.sel { background: var(--orange); color: var(--black); border-color: var(--orange); }
+  .size.soldout { opacity: 0.3; cursor: not-allowed; text-decoration: line-through; }
+  .size-hint { font-family: var(--mono); font-size: 12.5px; color: var(--muted); margin-top: 12px; min-height: 18px; }
+  .size-hint b { color: var(--orange); }
+
+  .deposit-card { border: 1px solid var(--line); border-radius: 12px; padding: 22px; margin: 26px 0 22px; background: var(--surface-2); }
+  .deposit-card .row { display: flex; justify-content: space-between; align-items: baseline; padding: 7px 0; font-size: 15px; }
+  .deposit-card .row.total { border-top: 1px solid var(--line); margin-top: 8px; padding-top: 14px; font-weight: 700; }
+  .deposit-card .row .lbl { font-family: var(--serif); color: #cfcfca; font-size: 16px; }
+  .deposit-card .row .val { font-family: var(--mono); }
+  .deposit-card .row .val.accent { color: var(--orange); font-weight: 600; }
+
+  #buy-area { margin-top: 8px; }
+  .buy-locked { pointer-events: none; opacity: 0.4; filter: grayscale(0.4); }
+  .buy-fallback {
+    border: 1px dashed color-mix(in srgb, var(--orange) 55%, transparent);
+    border-radius: 10px; padding: 18px; font-family: var(--mono); font-size: 13px; line-height: 1.6; color: var(--muted);
+    background: color-mix(in srgb, var(--orange) 7%, transparent);
+  }
+  .buy-fallback b { color: var(--orange); }
+  .buy-fallback code { color: var(--white); background: var(--black); padding: 1px 5px; border-radius: 4px; }
+  .reassure { font-family: var(--mono); font-size: 12px; color: var(--muted); margin-top: 14px; text-align: center; }
+  .reassure b { color: var(--neon); }
+
+  /* ---------- FAQ ---------- */
+  .faq { max-width: 760px; margin-inline: auto; }
+  details { border-bottom: 1px solid var(--line); padding: 20px 0; }
+  details summary { cursor: pointer; font-family: var(--grotesque); font-weight: 600; font-size: 18px; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+  details summary::-webkit-details-marker { display: none; }
+  details summary::after { content: "+"; color: var(--orange); font-size: 26px; font-weight: 400; line-height: 1; transition: transform .25s; }
+  details[open] summary::after { transform: rotate(45deg); }
+  details p { font-family: var(--serif); color: #cfcfca; margin-top: 12px; font-size: 16px; }
+
+  /* ---------- CTA band ---------- */
+  .cta-band { background: var(--neon); color: var(--black); text-align: center; }
+  .cta-band .sec-title { color: var(--black); }
+  .cta-band .sec-title .it { color: var(--black); }
+  .cta-band p { font-family: var(--serif); font-size: 18px; max-width: 48ch; margin: 0 auto 28px; color: #1a1a1a; }
+  .cta-band .btn-dark { background: var(--black); color: var(--white); }
+  .cta-band .btn-dark:hover { background: #1a1a1a; transform: translateY(-2px); }
+
+  /* ---------- footer ---------- */
+  footer { border-top: 1px solid var(--line); padding: 44px 0 40px; color: var(--muted); font-size: 13px; }
+  .foot-grid { display: flex; justify-content: space-between; gap: 22px; flex-wrap: wrap; align-items: center; }
+  .foot-grid .logo { height: 26px; }
+  .foot-links { display: flex; gap: 22px; flex-wrap: wrap; font-family: var(--mono); font-size: 12px; letter-spacing: 0.04em; }
+  .foot-links a, .foot-legal-links a { color: var(--muted); text-decoration: none; transition: color .2s; }
+  .foot-links a:hover, .foot-legal-links a:hover { color: var(--orange); }
+  .foot-meta { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 26px; padding-top: 18px; border-top: 1px solid var(--line); font-family: var(--mono); font-size: 12px; }
+  .foot-legal-links { display: flex; gap: 18px; }
+  .legal { max-width: 74ch; line-height: 1.6; font-size: 12px; margin-top: 18px; color: #6c6c66; }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 900px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero-media { order: -1; aspect-ratio: 4/3; }
+    .order-grid { grid-template-columns: 1fr; }
+    .order-media { position: static; }
+    .specs { grid-template-columns: repeat(2, 1fr); }
+    .gallery { grid-template-columns: 1fr; }
+    .gallery .tall { grid-row: auto; }
+    .gallery .stack { grid-template-rows: auto; }
+  }
+  @media (max-width: 520px) {
+    .nav-tag { display: none; }
+    .specs { grid-template-columns: 1fr 1fr; }
+    .mosaic { transform: scale(0.7); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================ HEADER ============================ -->
+<header>
+  <img class="logo" src="zig-logo-white.png" alt="The Zig Group" />
+  <span class="nav-tag">Limited Drop</span>
+  <a class="nav-cta" href="#order">Reserve a pair →</a>
+</header>
+
+<!-- ============================ HERO ============================ -->
+<section class="hero">
+  <div class="mosaic" id="mosaicTR" style="top:0; right:0; --px:38px;"></div>
+  <div class="mosaic" id="mosaicBL" style="bottom:0; left:0; --px:30px;"></div>
+
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="badge"><span class="dot"></span> Pre-order open · limited run</span>
+      <h1>
+        <span class="l1">See what's possible.</span>
+        <span class="l2">The Zig<br><span class="accent">Air Max 90</span></span>
+      </h1>
+      <p class="sub">We accidentally created the demand — so we're making them real. A custom Air Max 90 in sage, maize and navy, finished with The Zig on the heel. Reserve yours before the run closes.</p>
+
+      <div class="price-row">
+        <span class="price-now" id="depositDisplay">$50</span>
+        <span class="price-label">refundable deposit to reserve</span>
+      </div>
+      <div class="price-full">Full price <b id="fullDisplay">$220</b> — balance billed only when your pair ships.</div>
+
+      <div class="hero-cta-row">
+        <a class="btn btn-primary" href="#order">Reserve your size →</a>
+        <a class="btn btn-ghost" href="#film">Watch the drop</a>
+      </div>
+    </div>
+
+    <div class="hero-media">
+      <span class="corner">The film</span>
+      <video autoplay muted loop playsinline preload="metadata"
+             poster="20260617_221211000_iOS%201.jpg">
+        <source src="create_a_Product_launch_video.mp4" type="video/mp4" />
+      </video>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ MARQUEE ============================ -->
+<div class="strip">
+  <div class="marquee" id="marquee">
+    <span>LIMITED RUN&nbsp;&nbsp;✦&nbsp;&nbsp;THE ZIG × AIR MAX 90&nbsp;&nbsp;✦&nbsp;&nbsp;REFUNDABLE DEPOSIT&nbsp;&nbsp;✦&nbsp;&nbsp;SHIPS WORLDWIDE&nbsp;&nbsp;✦&nbsp;&nbsp;</span>
+    <span>LIMITED RUN&nbsp;&nbsp;✦&nbsp;&nbsp;THE ZIG × AIR MAX 90&nbsp;&nbsp;✦&nbsp;&nbsp;REFUNDABLE DEPOSIT&nbsp;&nbsp;✦&nbsp;&nbsp;SHIPS WORLDWIDE&nbsp;&nbsp;✦&nbsp;&nbsp;</span>
+  </div>
+</div>
+
+<!-- ============================ GALLERY ============================ -->
+<section id="look">
+  <div class="wrap">
+    <div class="eyebrow">The colorway</div>
+    <h2 class="sec-title">Built in sage, <span class="it">struck in maize.</span></h2>
+    <p class="sec-intro">Premium leather and mesh on a classic AM90 silhouette. Sage-olive overlays, a maize-yellow Air unit and heel, navy accents, and a co-branded Nike × The Zig heel tab.</p>
+
+    <div class="gallery">
+      <div class="frame tall">
+        <img src="20260617_221211000_iOS%201.jpg" alt="Side profile of the custom Air Max 90 showing the maize Air unit and navy heel" loading="lazy" />
+      </div>
+      <div class="stack">
+        <div class="frame"><img src="20260617_221211000_iOS.jpg" alt="Top-down view of both shoes in the box" loading="lazy" /></div>
+        <div class="frame"><img src="20260617_221211000_iOS%201%201.jpg" alt="Detail shot of the custom Air Max 90" loading="lazy" /></div>
+      </div>
+    </div>
+
+    <div class="product-desc">
+      <p>It started as a joke and ended up on people's feet. The Zig Air Max 90 takes the silhouette that defined a generation and runs it through our lens — sage-olive leather and breathable mesh over a maize-yellow Air unit, grounded in navy and finished with The Zig on the heel. Clean enough for the gallery, loud enough for the street.</p>
+      <p>Built on the classic AM90 last, it's unisex and true to size, made in a strictly limited run. Reserve your pair with a fully refundable deposit; the balance is only billed when yours is ready to ship. Once the run is allocated, that's it.</p>
+      <p class="kicker">See what's possible. Then put it on.</p>
+    </div>
+
+    <div class="specs">
+      <div class="spec"><div class="k">Silhouette</div><div class="v">Air Max 90</div></div>
+      <div class="spec"><div class="k">Colorway</div><div class="v">Sage / Maize</div>
+        <div class="swatches"><i style="background:#F4F1EA"></i><i style="background:#B7B79A"></i><i style="background:#F5A623"></i><i style="background:#1B2A4A"></i></div>
+      </div>
+      <div class="spec"><div class="k">Edition</div><div class="v">Limited run</div></div>
+      <div class="spec"><div class="k">Ships</div><div class="v" id="shipDisplay">Est. Q4 2026</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ LOOKBOOK ============================ -->
+<section id="lookbook" style="padding-top:0">
+  <div class="wrap">
+    <div class="eyebrow">The lookbook</div>
+    <h2 class="sec-title">On foot. <span class="it">In the wild.</span></h2>
+    <p class="sec-intro">Shot on the street and in the gallery — the way they're meant to be worn.</p>
+
+    <div class="gallery">
+      <div class="frame tall">
+        <img src="model-group.jpg" alt="Three models on graffiti steps wearing The Zig Air Max 90, beside The Zig Group sign" loading="lazy" />
+      </div>
+      <div class="stack">
+        <div class="frame"><img src="model-suit.jpg" alt="Model in a blue suit styled with The Zig Air Max 90" loading="lazy" /></div>
+        <div class="frame"><img src="model-gallery.jpg" alt="Model wearing The Zig Air Max 90 in a gallery" loading="lazy" /></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ FILM ============================ -->
+<section id="film" style="padding-top:0">
+  <div class="wrap">
+    <div class="hero-media" style="aspect-ratio:16/9; max-width:960px; margin-inline:auto;">
+      <span class="corner">The drop · full film</span>
+      <video controls playsinline preload="metadata" poster="20260617_221211000_iOS.jpg">
+        <source src="create_a_Product_launch_video.mp4" type="video/mp4" />
+      </video>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ ORDER ============================ -->
+<section class="order" id="order">
+  <div class="wrap order-grid">
+    <div class="order-media">
+      <img src="20260617_221211000_iOS%201.jpg" alt="The Zig Air Max 90" />
+    </div>
+
+    <div class="order-copy">
+      <div class="eyebrow">Reserve your pair</div>
+      <h2 class="sec-title" style="font-size:clamp(28px,3.6vw,44px)">The Zig Air Max 90</h2>
+      <p class="sec-intro">Choose your size, then place a refundable deposit through Stripe to lock in a pair from the run.</p>
+
+      <div class="size-label"><span>Select size — unisex</span><a href="#sizing">Size guide</a></div>
+      <div class="scale-toggle" id="scaleToggle" role="group" aria-label="Size system">
+        <button type="button" data-scale="men" class="on">US Men's</button>
+        <button type="button" data-scale="women">US Women's</button>
+      </div>
+      <div class="sizes" id="sizes"></div>
+      <div class="size-hint" id="sizeHint">Pick a size to continue.</div>
+
+      <div class="deposit-card">
+        <div class="row"><span class="lbl">Refundable deposit (today)</span><span class="val accent" id="depositRow">$50</span></div>
+        <div class="row"><span class="lbl">Balance on ship</span><span class="val" id="balanceRow">$170</span></div>
+        <div class="row total"><span class="lbl">Full price</span><span class="val" id="fullRow">$220</span></div>
+      </div>
+
+      <!-- Stripe Buy Button mounts here once configured (see CONFIG below) -->
+      <div id="buy-area"></div>
+
+      <p class="reassure"><b>100% refundable</b> until your pair enters production · Secure checkout by Stripe</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ FAQ ============================ -->
+<section id="sizing">
+  <div class="wrap faq">
+    <div class="eyebrow" style="text-align:center">Good to know</div>
+    <h2 class="sec-title" style="text-align:center; margin-bottom:36px;">Questions</h2>
+
+    <details open>
+      <summary>What exactly am I paying today?</summary>
+      <p>A refundable deposit that reserves your size from the limited run. The remaining balance is only charged when your pair is confirmed and ready to ship.</p>
+    </details>
+    <details>
+      <summary>Is the deposit really refundable?</summary>
+      <p>Yes. You can request a full refund of your deposit any time before your pair enters production. Just reply to your Stripe receipt or email us.</p>
+    </details>
+    <details>
+      <summary>How does sizing work?</summary>
+      <p>These are unisex and run true to standard Nike Air Max 90 sizing. Use the Men's / Women's toggle to shop your scale — women's US is 1.5 sizes up from men's (e.g. Men's 8 = Women's 9.5). If you're between sizes, we suggest sizing up. Your size is confirmed at checkout as part of your order.</p>
+    </details>
+    <details>
+      <summary>When will they ship?</summary>
+      <p>This is a made-to-order limited run. Current estimate is Q4 2026. You'll get email updates at each milestone and can cancel for a full deposit refund before production.</p>
+    </details>
+    <details>
+      <summary>Do you ship internationally?</summary>
+      <p>Yes — shipping and any duties are calculated on the balance invoice based on your address.</p>
+    </details>
+  </div>
+</section>
+
+<!-- ============================ CTA BAND ============================ -->
+<section class="cta-band">
+  <div class="wrap">
+    <h2 class="sec-title">The run is small. <span class="it">The window's smaller.</span></h2>
+    <p>Strictly limited. Once the run is allocated, the pre-order closes for good.</p>
+    <a class="btn btn-dark" href="#order">Reserve your size →</a>
+  </div>
+</section>
+
+<!-- ============================ FOOTER ============================ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <img class="logo" src="zig-logo-white.png" alt="The Zig Group" />
+    </div>
+    <div class="foot-meta">
+      <span>Copyright <span id="year"></span> © The Zig Group</span>
+      <span class="foot-legal-links">
+        <a href="https://www.thezig.io/privacy-policy">Privacy Policy</a>
+        <a href="https://www.thezig.io/terms-of-service">Terms of Service</a>
+      </span>
+    </div>
+    <p class="legal">
+      "The Zig" Air Max 90 is an independent custom project. Nike, Air Max and the Swoosh are trademarks of Nike, Inc., used here only to describe the base product. This pre-order page is not affiliated with, endorsed by, or sponsored by Nike, Inc. Deposits are refundable as described above.
+    </p>
+  </div>
+</footer>
+
+<script>
+  /* ============================================================
+     CONFIG — edit these values, no other code changes needed.
+     ============================================================ */
+  const CONFIG = {
+    productName:   "The Zig Air Max 90",
+    fullPrice:     220,        // full retail price (number, USD)
+    deposit:       50,         // refundable deposit charged today
+    currency:      "$",
+    shipEstimate:  "Est. Q4 2026",
+
+    // Unisex shoe — sized on the men's last. Women's US = men's + 1.5 (1:1 equivalents).
+    sizesMen:     ["6","6.5","7","7.5","8","8.5","9","9.5","10","10.5","11","11.5","12","12.5","13"],
+    sizesWomen:   ["7.5","8","8.5","9","9.5","10","10.5","11","11.5","12","12.5","13","13.5","14","14.5"],
+    soldOutMen:   [],
+    soldOutWomen: [],
+
+    // ---- STRIPE (no backend needed) -------------------------------------
+    // 1) In Stripe, create a Product priced at the DEPOSIT amount (e.g. $50),
+    //    named "The Zig Air Max 90 — Pre-order deposit".
+    // 2) Create a Buy Button for it (Dashboard → Payment Links → Buy Button).
+    //    ADD A CUSTOM FIELD: a dropdown "Shoe size (US)" listing every size
+    //    (men's + women's, e.g. "M 9" / "W 10.5") — captures size with the
+    //    payment. Turn ON shipping address.
+    // 3) Paste the Buy Button ID + your PUBLISHABLE key below.
+    //    Leave blank to keep the page in safe "preview" mode.
+    stripeBuyButtonId:    "",  // e.g. "buy_btn_1ABCxyz..."
+    stripePublishableKey: "",  // e.g. "pk_live_..." or "pk_test_..."
+
+    // OPTIONAL: a Payment Link URL instead of a Buy Button.
+    stripePaymentLink:    ""   // e.g. "https://buy.stripe.com/xxxxxxxx"
+  };
+
+  /* ---------------- dynamic values ---------------- */
+  const money = n => CONFIG.currency + n.toLocaleString();
+  document.getElementById("depositDisplay").textContent = money(CONFIG.deposit);
+  document.getElementById("fullDisplay").textContent    = money(CONFIG.fullPrice);
+  document.getElementById("depositRow").textContent     = money(CONFIG.deposit);
+  document.getElementById("balanceRow").textContent     = money(CONFIG.fullPrice - CONFIG.deposit);
+  document.getElementById("fullRow").textContent        = money(CONFIG.fullPrice);
+  document.getElementById("shipDisplay").textContent    = CONFIG.shipEstimate;
+  document.getElementById("year").textContent           = new Date().getFullYear();
+
+  /* ---------------- pixel mosaic motif ---------------- */
+  // Brand "Visual Elements" staircase. Matrix values map to brand colors.
+  const C = { O:"#FA5300", R:"#FD204F", N:"#D3FF9D", o:"#C24200", r:"#7A1228", n:"#7E9C56", _:"transparent" };
+  function buildMosaic(el, matrix) {
+    const cols = matrix[0].length;
+    el.style.gridTemplateColumns = `repeat(${cols}, var(--px))`;
+    matrix.flat().forEach(k => {
+      const i = document.createElement("i");
+      i.style.background = C[k] || "transparent";
+      el.appendChild(i);
+    });
+  }
+  // top-right cascade (muted -> orange), bottom-left cascade (orange/red)
+  buildMosaic(document.getElementById("mosaicTR"), [
+    ["_","_","_","n","O"],
+    ["_","_","n","o","O"],
+    ["_","_","_","n","o"],
+    ["_","_","_","_","O"],
+  ]);
+  buildMosaic(document.getElementById("mosaicBL"), [
+    ["O","_","_","_","_"],
+    ["o","r","_","_","_"],
+    ["O","o","r","_","_"],
+    ["O","O","o","r","_"],
+  ]);
+
+  /* ---------------- size selector (unisex) ---------------- */
+  const sizesEl  = document.getElementById("sizes");
+  const hintEl   = document.getElementById("sizeHint");
+  const toggleEl = document.getElementById("scaleToggle");
+  let currentScale = "men";   // "men" | "women"
+  let selectedSize = null;
+
+  const scaleData = {
+    men:   { list: CONFIG.sizesMen,   soldOut: CONFIG.soldOutMen,   label: "Men's"   },
+    women: { list: CONFIG.sizesWomen, soldOut: CONFIG.soldOutWomen, label: "Women's" },
+  };
+
+  function renderSizes() {
+    const { list, soldOut, label } = scaleData[currentScale];
+    sizesEl.innerHTML = "";
+    selectedSize = null;
+    document.getElementById("buy-area").classList.add("buy-locked");
+    hintEl.innerHTML = "Pick a size to continue.";
+    list.forEach(sz => {
+      const el = document.createElement("div");
+      const isSoldOut = soldOut.includes(sz);
+      el.className = "size" + (isSoldOut ? " soldout" : "");
+      el.textContent = sz;
+      if (!isSoldOut) {
+        el.addEventListener("click", () => {
+          sizesEl.querySelectorAll(".size").forEach(s => s.classList.remove("sel"));
+          el.classList.add("sel");
+          selectedSize = sz;
+          hintEl.innerHTML = "Reserving <b>US " + label + " " + sz + "</b> — confirm your size at checkout.";
+          document.getElementById("buy-area").classList.remove("buy-locked");
+        });
+      }
+      sizesEl.appendChild(el);
+    });
+  }
+
+  toggleEl.querySelectorAll("button").forEach(btn => {
+    btn.addEventListener("click", () => {
+      currentScale = btn.dataset.scale;
+      toggleEl.querySelectorAll("button").forEach(b => b.classList.toggle("on", b === btn));
+      renderSizes();
+    });
+  });
+  renderSizes();
+
+  /* ---------------- mount Stripe checkout ---------------- */
+  (function mountBuy() {
+    const area = document.getElementById("buy-area");
+
+    if (CONFIG.stripeBuyButtonId && CONFIG.stripePublishableKey) {
+      const btn = document.createElement("stripe-buy-button");
+      btn.setAttribute("buy-button-id", CONFIG.stripeBuyButtonId);
+      btn.setAttribute("publishable-key", CONFIG.stripePublishableKey);
+      area.appendChild(btn);
+      area.classList.add("buy-locked");
+      return;
+    }
+    if (CONFIG.stripePaymentLink) {
+      const a = document.createElement("a");
+      a.className = "btn btn-primary";
+      a.style.width = "100%";
+      a.href = CONFIG.stripePaymentLink;
+      a.target = "_blank"; a.rel = "noopener";
+      a.textContent = "Place " + money(CONFIG.deposit) + " deposit →";
+      area.appendChild(a);
+      area.classList.add("buy-locked");
+      return;
+    }
+    area.innerHTML =
+      '<div class="buy-fallback"><b>Checkout not connected yet.</b><br>' +
+      'Add your Stripe <code>buy-button-id</code> + <code>publishable-key</code> ' +
+      '(or a <code>stripePaymentLink</code>) in the CONFIG block of this file. ' +
+      'Until then this is a live preview of the page.</div>';
+  })();
+</script>
+</body>
+</html>
