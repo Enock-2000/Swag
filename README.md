@@ -30,6 +30,8 @@ stripePaymentLink:    ""   // optional Payment Link URL
 
 Leave them blank to run in preview mode (size picker works, checkout shows a placeholder).
 
+When checkout is connected, the selected size is passed to Stripe as `client_reference_id` on the Payment Link (compact format, e.g. `M9` or `W10.5`).
+
 ## Deploy
 
 Pushes to `master` trigger a GitHub Actions workflow that builds and deploys to GitHub Pages.

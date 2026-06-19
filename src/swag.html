@@ -4,12 +4,12 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>The Zig Air Max 90 — Limited Pre-Order | The Zig Group</title>
-<meta name="description" content="Pre-order the custom Nike Air Max 90 'The Zig'. Reserve your pair with a refundable deposit. Strictly limited run." />
+<meta name="description" content="Pre-order the custom Nike Air Max 90 'The Zig'. Reserve your pair at full price. Shipping calculated at checkout. Strictly limited run." />
 
 <!-- Open Graph / social share -->
 <meta property="og:type" content="product" />
 <meta property="og:title" content="The Zig Air Max 90 — Limited Pre-Order" />
-<meta property="og:description" content="Custom Nike Air Max 90 'The Zig'. Reserve yours with a refundable deposit. Strictly limited run." />
+<meta property="og:description" content="Custom Nike Air Max 90 'The Zig'. Reserve yours at full price. Shipping calculated at checkout. Strictly limited run." />
 <meta property="og:image" content="model-group.jpg" />
 
 <!-- Stripe Buy Button library -->
@@ -361,12 +361,12 @@
   .size-hint { font-family: var(--mono); font-size: 12.5px; color: var(--muted); margin-top: 12px; min-height: 18px; }
   .size-hint b { color: var(--orange); }
 
-  .deposit-card { border: 1px solid var(--line); border-radius: 12px; padding: 22px; margin: 26px 0 22px; background: var(--surface-2); }
-  .deposit-card .row { display: flex; justify-content: space-between; align-items: baseline; padding: 7px 0; font-size: 15px; }
-  .deposit-card .row.total { border-top: 1px solid var(--line); margin-top: 8px; padding-top: 14px; font-weight: 700; }
-  .deposit-card .row .lbl { font-family: var(--serif); color: var(--white); font-size: 16px; }
-  .deposit-card .row .val { font-family: var(--mono); }
-  .deposit-card .row .val.accent { color: var(--orange); font-weight: 600; }
+  .reserve-card { border: 1px solid var(--line); border-radius: 12px; padding: 22px; margin: 26px 0 22px; background: var(--surface-2); }
+  .reserve-card .row { display: flex; justify-content: space-between; align-items: baseline; padding: 7px 0; font-size: 15px; }
+  .reserve-card .row.total { border-top: 1px solid var(--line); margin-top: 8px; padding-top: 14px; font-weight: 700; }
+  .reserve-card .row .lbl { font-family: var(--serif); color: var(--white); font-size: 16px; }
+  .reserve-card .row .val { font-family: var(--mono); }
+  .reserve-card .row .val.accent { color: var(--orange); font-weight: 600; }
 
   #buy-area { margin-top: 8px; }
   .buy-cta-link {
@@ -498,10 +498,10 @@
       <p class="sub">We accidentally created the demand — so we're making them real. A custom Air Max 90 in sage, maize and navy, finished with The Zig on the heel. Reserve yours before the run closes.</p>
 
       <div class="price-row">
-        <span class="price-now" id="depositDisplay">$50</span>
-        <span class="price-label">refundable deposit to reserve</span>
+        <span class="price-now" id="priceDisplay">$220</span>
+        <span class="price-label">full price to reserve</span>
       </div>
-      <div class="price-full">Full price <b id="fullDisplay">$220</b> — balance billed only when your pair ships.</div>
+      <div class="price-full">Shipping calculated at checkout.</div>
 
       <div class="hero-cta-row">
         <a class="btn btn-primary" href="#order">
@@ -552,7 +552,7 @@
 
     <div class="product-desc">
       <p>It started as a joke and ended up on people's feet. The Zig Air Max 90 takes the silhouette that defined a generation and runs it through our lens — sage-olive leather and breathable mesh over a maize-yellow Air unit, grounded in navy and finished with The Zig on the heel. Clean enough for the gallery, loud enough for the street.</p>
-      <p>Built on the classic AM90 last, it's unisex and true to size, made in a strictly limited run. Reserve your pair with a fully refundable deposit; the balance is only billed when yours is ready to ship. Once the run is allocated, that's it.</p>
+      <p>Built on the classic AM90 last, it's unisex and true to size, made in a strictly limited run. Reserve your pair by paying full price now, with shipping calculated at checkout. Once the run is allocated, that's it.</p>
       <p class="kicker">See what's possible. Then put it on.</p>
     </div>
 
@@ -608,7 +608,7 @@
     <div class="order-copy">
       <div class="eyebrow">Reserve your pair</div>
       <h2 class="sec-title" style="font-size:clamp(28px,3.6vw,44px)">The Zig Air Max 90</h2>
-      <p class="sec-intro">Choose your size, then place a refundable deposit through Stripe to lock in a pair from the run.</p>
+      <p class="sec-intro">Choose your size, then pay the full pair price through Stripe to lock in your pair from the run. Shipping is calculated at checkout.</p>
 
       <div class="size-label"><span>Select size — unisex</span><a href="#sizing">Size guide</a></div>
       <div class="scale-toggle" id="scaleToggle" role="group" aria-label="Size system">
@@ -618,16 +618,16 @@
       <div class="sizes" id="sizes"></div>
       <div class="size-hint" id="sizeHint">Pick a size to continue.</div>
 
-      <div class="deposit-card">
-        <div class="row"><span class="lbl">Refundable deposit (today)</span><span class="val accent" id="depositRow">$50</span></div>
-        <div class="row"><span class="lbl">Balance on ship</span><span class="val" id="balanceRow">$170</span></div>
-        <div class="row total"><span class="lbl">Full price</span><span class="val" id="fullRow">$220</span></div>
+      <div class="reserve-card">
+        <div class="row"><span class="lbl">Pair price</span><span class="val" id="fullRow">$220</span></div>
+        <div class="row"><span class="lbl">Shipping</span><span class="val">Calculated at checkout</span></div>
+        <div class="row total"><span class="lbl">Total charged today</span><span class="val accent" id="payNowRow">$220</span></div>
       </div>
 
       <!-- Stripe Buy Button mounts here once configured (see CONFIG below) -->
       <div id="buy-area"></div>
 
-      <p class="reassure"><b>100% refundable</b> until your pair enters production · Secure checkout by Stripe</p>
+      <p class="reassure"><b>Secure checkout by Stripe</b> · Shipping calculated at checkout</p>
     </div>
   </div>
 </section>
@@ -640,11 +640,11 @@
 
     <details open>
       <summary>What exactly am I paying today?</summary>
-      <p>A refundable deposit that reserves your size from the limited run. The remaining balance is only charged when your pair is confirmed and ready to ship.</p>
+      <p>The full pair price. Shipping is calculated separately at checkout once you enter your delivery address.</p>
     </details>
     <details>
-      <summary>Is the deposit really refundable?</summary>
-      <p>Yes. You can request a full refund of your deposit any time before your pair enters production. Just reply to your Stripe receipt or email us.</p>
+      <summary>Is shipping included?</summary>
+      <p>No. Shipping is added at checkout based on your address, so you only see the final delivery cost once your destination is entered.</p>
     </details>
     <details>
       <summary>How does sizing work?</summary>
@@ -652,11 +652,11 @@
     </details>
     <details>
       <summary>When will they ship?</summary>
-      <p>This is a made-to-order limited run. Current estimate is Q4 2026. You'll get email updates at each milestone and can cancel for a full deposit refund before production.</p>
+      <p>This is a made-to-order limited run. Current estimate is Q4 2026. You'll get email updates at each milestone as pairs move toward production and shipment.</p>
     </details>
     <details>
       <summary>Do you ship internationally?</summary>
-      <p>Yes — shipping and any duties are calculated on the balance invoice based on your address.</p>
+      <p>Yes — shipping is calculated at checkout based on your address.</p>
     </details>
   </div>
 </section>
@@ -691,7 +691,7 @@
       </span>
     </div>
     <p class="legal">
-      "The Zig" Air Max 90 is an independent custom project. Nike, Air Max and the Swoosh are trademarks of Nike, Inc., used here only to describe the base product. This pre-order page is not affiliated with, endorsed by, or sponsored by Nike, Inc. Deposits are refundable as described above.
+      "The Zig" Air Max 90 is an independent custom project. Nike, Air Max and the Swoosh are trademarks of Nike, Inc., used here only to describe the base product. This pre-order page is not affiliated with, endorsed by, or sponsored by Nike, Inc. Shipping is calculated at checkout.
     </p>
   </div>
 </footer>
@@ -702,8 +702,7 @@
      ============================================================ */
   const CONFIG = {
     productName:   "The Zig Air Max 90",
-    fullPrice:     220,        // full retail price (number, USD)
-    deposit:       50,         // refundable deposit charged today
+    fullPrice:     220,        // full pair price charged today to reserve
     currency:      "$",
     shipEstimate:  "Est. Q4 2026",
 
@@ -714,13 +713,13 @@
     soldOutWomen: [],
 
     // ---- STRIPE (no backend needed) -------------------------------------
-    // 1) In Stripe, create a Product priced at the DEPOSIT amount (e.g. $50),
-    //    named "The Zig Air Max 90 — Pre-order deposit".
-    // 2) Create a Buy Button for it (Dashboard → Payment Links → Buy Button).
-    //    ADD A CUSTOM FIELD: a dropdown "Shoe size (US)" listing every size
-    //    (men's + women's, e.g. "M 9" / "W 10.5") — captures size with the
-    //    payment. Turn ON shipping address.
-    // 3) Paste the Buy Button ID + your PUBLISHABLE key below.
+    // 1) In Stripe, create a Product priced at the FULL pair amount (e.g. $220),
+    //    named "The Zig Air Max 90 - Reserve your pair". Turn ON shipping address.
+    // 2) Create a Payment Link or Buy Button for it.
+    //    Shoe size is captured automatically: the on-page picker passes the
+    //    selected size as client_reference_id (compact format, e.g. M9 / W10.5).
+    //    Fulfillment can read it in the Stripe Dashboard or via checkout webhooks.
+    // 3) Paste the Buy Button ID + publishable key, or a Payment Link URL below.
     //    Leave blank to keep the page in safe "preview" mode.
     stripeBuyButtonId:    "",  // e.g. "buy_btn_1ABCxyz..."
     stripePublishableKey: "",  // e.g. "pk_live_..." or "pk_test_..."
@@ -731,11 +730,9 @@
 
   /* ---------------- dynamic values ---------------- */
   const money = n => CONFIG.currency + n.toLocaleString();
-  document.getElementById("depositDisplay").textContent = money(CONFIG.deposit);
-  document.getElementById("fullDisplay").textContent    = money(CONFIG.fullPrice);
-  document.getElementById("depositRow").textContent     = money(CONFIG.deposit);
-  document.getElementById("balanceRow").textContent     = money(CONFIG.fullPrice - CONFIG.deposit);
+  document.getElementById("priceDisplay").textContent   = money(CONFIG.fullPrice);
   document.getElementById("fullRow").textContent        = money(CONFIG.fullPrice);
+  document.getElementById("payNowRow").textContent      = money(CONFIG.fullPrice);
   document.getElementById("shipDisplay").textContent    = CONFIG.shipEstimate;
   document.getElementById("year").textContent           = new Date().getFullYear();
 
@@ -771,6 +768,38 @@
   const toggleEl = document.getElementById("scaleToggle");
   let currentScale = "men";   // "men" | "women"
   let selectedSize = null;
+  let checkoutLink = null;
+  let buyButton = null;
+
+  function sizeReferenceId(scale, size) {
+    return (scale === "men" ? "M" : "W") + size;
+  }
+
+  function checkoutUrlWithSize(baseUrl, scale, size) {
+    const url = new URL(baseUrl);
+    url.searchParams.set("client_reference_id", sizeReferenceId(scale, size));
+    return url.toString();
+  }
+
+  function syncCheckoutReference() {
+    if (!selectedSize) return;
+    const ref = sizeReferenceId(currentScale, selectedSize);
+    if (checkoutLink) {
+      checkoutLink.href = checkoutUrlWithSize(CONFIG.stripePaymentLink, currentScale, selectedSize);
+    }
+    if (buyButton) {
+      buyButton.setAttribute("client-reference-id", ref);
+    }
+  }
+
+  function resetCheckoutReference() {
+    if (checkoutLink) {
+      checkoutLink.href = CONFIG.stripePaymentLink;
+    }
+    if (buyButton) {
+      buyButton.removeAttribute("client-reference-id");
+    }
+  }
 
   const scaleData = {
     men:   { list: CONFIG.sizesMen,   soldOut: CONFIG.soldOutMen,   label: "Men's"   },
@@ -781,6 +810,7 @@
     const { list, soldOut, label } = scaleData[currentScale];
     sizesEl.innerHTML = "";
     selectedSize = null;
+    resetCheckoutReference();
     document.getElementById("buy-area").classList.add("buy-locked");
     hintEl.innerHTML = "Pick a size to continue.";
     list.forEach(sz => {
@@ -793,7 +823,8 @@
           sizesEl.querySelectorAll(".size").forEach(s => s.classList.remove("sel"));
           el.classList.add("sel");
           selectedSize = sz;
-          hintEl.innerHTML = "Reserving <b>US " + label + " " + sz + "</b> — confirm your size at checkout.";
+          hintEl.innerHTML = "Reserving <b>US " + label + " " + sz + "</b> — size sent to checkout.";
+          syncCheckoutReference();
           document.getElementById("buy-area").classList.remove("buy-locked");
         });
       }
@@ -815,24 +846,24 @@
     const area = document.getElementById("buy-area");
 
     if (CONFIG.stripeBuyButtonId && CONFIG.stripePublishableKey) {
-      const btn = document.createElement("stripe-buy-button");
-      btn.setAttribute("buy-button-id", CONFIG.stripeBuyButtonId);
-      btn.setAttribute("publishable-key", CONFIG.stripePublishableKey);
-      area.appendChild(btn);
+      buyButton = document.createElement("stripe-buy-button");
+      buyButton.setAttribute("buy-button-id", CONFIG.stripeBuyButtonId);
+      buyButton.setAttribute("publishable-key", CONFIG.stripePublishableKey);
+      area.appendChild(buyButton);
       area.classList.add("buy-locked");
       return;
     }
     if (CONFIG.stripePaymentLink) {
-      const a = document.createElement("a");
-      a.className = "header-cta-link buy-cta-link";
-      a.href = CONFIG.stripePaymentLink;
-      a.target = "_blank"; a.rel = "noopener";
-      a.innerHTML =
-        "<span>Place " + money(CONFIG.deposit) + " deposit</span>" +
+      checkoutLink = document.createElement("a");
+      checkoutLink.className = "header-cta-link buy-cta-link";
+      checkoutLink.href = CONFIG.stripePaymentLink;
+      checkoutLink.target = "_blank"; checkoutLink.rel = "noopener";
+      checkoutLink.innerHTML =
+        "<span>Reserve your pair</span>" +
         '<svg class="header-cta-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">' +
         '<path d="M3 8h9M8.5 3.5 13 8l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter"/>' +
         "</svg>";
-      area.appendChild(a);
+      area.appendChild(checkoutLink);
       area.classList.add("buy-locked");
       return;
     }
@@ -876,7 +907,7 @@
     registerReveal(".specs .spec", { stepDelay: 60, shift: "18px" });
     registerReveal("#film .hero-media", { shift: "20px" });
     registerReveal(".order-media", { direction: "left" });
-    registerReveal(".order-copy > .eyebrow, .order-copy > .sec-title, .order-copy > .sec-intro, .size-label, .scale-toggle, #sizes, #sizeHint, .deposit-card, #buy-area, .reassure", { stepDelay: 55 });
+    registerReveal(".order-copy > .eyebrow, .order-copy > .sec-title, .order-copy > .sec-intro, .size-label, .scale-toggle, #sizes, #sizeHint, .reserve-card, #buy-area, .reassure", { stepDelay: 55 });
     registerReveal("#sizing .eyebrow, #sizing .sec-title, #sizing .sec-intro", { stepDelay: 70 });
     registerReveal("#sizing details", { stepDelay: 45, shift: "18px" });
     registerReveal(".cta-band .wrap > *", { stepDelay: 80 });
